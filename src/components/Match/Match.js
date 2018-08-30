@@ -239,6 +239,7 @@ export default class Match extends Component {
     const { match } = this.props;
 
     let narrative = match.preMatchDetails;
+
     if(match.inMatchDetails){
       narrative = match.inMatchDetails;
     }
@@ -246,11 +247,30 @@ export default class Match extends Component {
       narrative = match.postMatchDetails
     }
 
-    return (
-      <div className="narrative">
-        {renderHTML(narrative)}
-      </div>
-    )
+    if (this.state.expanded === false) {
+      return (
+        <div className="narrative">
+          {renderHTML(this.truncate(narrative, 50))}
+        </div>
+      )
+    } else {
+      return (
+        <div className="narrative">
+          {renderHTML(narrative)}
+        </div>
+      )
+    }
+  }
+
+  truncate(elem, limit) {
+    // if not provided, get out of there!
+    if (!elem || !limit) return;
+
+    // truncate content based on word limit
+    let content = elem.trim();
+    content = content.split(" ").slice(0, limit);
+    content = content.join(" ") + "...";
+    return content;
   }
 
   render() {
