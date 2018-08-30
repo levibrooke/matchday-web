@@ -44,6 +44,10 @@
         box-shadow: none;
         transform: none;
       }
+
+      .content-container .inner-container {
+        height: 100%;
+      }
     }
 
     &.matchscheduled {
